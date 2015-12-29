@@ -1,11 +1,10 @@
 // ChiliPeppr Widget/Element Javascript
-/*global requirejs cprequire cpdefine chilipeppr THREE*/
+/*global requirejs cprequire cpdefine chilipeppr THREE ko*/
 
 requirejs.config({
     paths: {
         // Example of how to define the key (you make up the key) and the URL
         // Make sure you DO NOT put the .js at the end of the URL
-        KnockOut: '//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min',
     },
     shim: {
         // See require.js docs for how to define dependencies that
@@ -17,6 +16,65 @@ cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) 
 
     console.log("test running of " + myWidget.id);
 
+    $('#com-chilipeppr-widget-plugandplay').css('position', 'relative');
+    $('#com-chilipeppr-widget-plugandplay').css('background', 'none');
+    $('#com-chilipeppr-widget-plugandplay').css('width', '300px');
+    $('body').prepend('<div id="test-3dviewer"></div>');
+
+    chilipeppr.load("#test-3dviewer", "http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/", function (ew) {
+        cprequire(['inline:com-chilipeppr-widget-3dviewer'], function (threed) {
+            threed.init({
+                doMyOwnDragDrop: false
+            });
+            //$('#com-chilipeppr-widget-3dviewer .panel-heading').addClass('hidden');
+            //autolevel.addRegionTo3d();
+            //autolevel.loadFileFromLocalStorageKey('com-chilipeppr-widget-autolevel-recent8');
+            //autolevel.toggleShowMatrix();
+
+            // only init eagle widget once 3d is loaded
+            // set doMyOwnDragDrop
+            ew.init(true);
+        });
+    });
+
+    $('#test-eagle-import').css('position', 'relative');
+    $('#test-eagle-import').css('background', 'none');
+    $('#test-eagle-import').css('width', '300px');
+    chilipeppr.load("#test-eagle-import", "http://jsfiddle.net/xpix/qmt3e0sm/show/light/",
+    function () {
+        cprequire(
+        ["inline:com-chilipeppr-widget-eagle"],
+
+        function (imp) {
+            imp.init();
+        });
+    });
+
+
+    chilipeppr.load("#test-drag-drop", "http://fiddle.jshell.net/chilipeppr/Z9F6G/show/light/",
+
+    function () {
+        cprequire(
+        ["inline:com-chilipeppr-elem-dragdrop"],
+
+        function (dd) {
+            dd.init();
+            dd.bind("body", null);
+        });
+    });
+    
+    chilipeppr.load("#com-chilipeppr-flash",
+        "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
+
+    function () {
+        console.log("mycallback got called after loading flash msg module");
+        cprequire(["inline:com-chilipeppr-elem-flashmsg"], function (fm) {
+            //console.log("inside require of " + fm.id);
+            fm.init();
+        });
+    });
+
+
     // init my widget
     myWidget.init();
     $('#com-chilipeppr-widget-plugandplay').css('padding', '10px;');
@@ -24,7 +82,7 @@ cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) 
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
@@ -36,6 +94,14 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
         fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
         githuburl: "(auto fill by runme.js)", // The backing github repo
         testurl: "(auto fill by runme.js)",   // The standalone working widget so can view it working by itself
+
+        /**
+         * PICK AND PLACE VARIABLES.
+         */
+        pnpholders: {
+            'PNP Holder V0.1': 'pnp_holder_v0.1'
+        },
+
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -87,7 +153,7 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
             this.btnSetup();
             this.forkSetup();
 
-            console.log("I am done being initted.");
+            console.log("Module this object: ", this);
         },
         /**
          * Call this method from init to setup all the buttons when this widget
@@ -119,6 +185,17 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
                 placement: "auto",
                 trigger: "hover",
                 container: 'body'
+            });
+        },
+        /** 
+         * empty and fill select box 
+        */
+        selectbox: function(id, hash){
+            $(id).find('option').remove().end();
+            $.each(hash, function(key, value) {
+                $(id).append(
+                        $('<option></option>').val(value).html(key)
+                    );
             });
         },
         /**
@@ -159,6 +236,9 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
 
             this.options = options;
             console.log("options:", options);
+
+            // init ui 
+            this.selectbox('#pnpholders', this.pnpholders);
 
             // show/hide body
             if (options.showBody) {

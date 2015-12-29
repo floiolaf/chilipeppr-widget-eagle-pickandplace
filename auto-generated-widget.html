@@ -2,18 +2,19 @@
 <html>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   
+   <title>Widget / Machine Vision</title>
+   
+   <!-- ChiliPeppr is based on bootstrap CSS. -->
+   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+   
+   <!-- Customized version of require.js for ChiliPeppr. Please see require.js docs for how
+   ChiliPeppr's dependency system works as it's based on require.js. -->
+   <script type='text/javascript' src="//i2dcui.appspot.com/js/require.js"></script>
 
-    <title>Widget / Machine Vision</title>
-
-    <!-- ChiliPeppr is based on bootstrap CSS. -->
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-    <!-- Customized version of require.js for ChiliPeppr. Please see require.js docs for how
-    ChiliPeppr's dependency system works as it's based on require.js. -->
-    <script type='text/javascript' src="//i2dcui.appspot.com/js/require.js"></script>
-
-    <style type='text/css'>
+   
+   <style type='text/css'>
 /* CSS for ChiliPeppr Widget */
 
 #com-chilipeppr-widget-plugandplay {
@@ -26,17 +27,16 @@
 
 
     </style>
-
-    <script type='text/javascript'>
+   
+   <script type='text/javascript'>
     //<![CDATA[
 // ChiliPeppr Widget/Element Javascript
-/*global requirejs cprequire cpdefine chilipeppr THREE*/
+/*global requirejs cprequire cpdefine chilipeppr THREE ko*/
 
 requirejs.config({
     paths: {
         // Example of how to define the key (you make up the key) and the URL
         // Make sure you DO NOT put the .js at the end of the URL
-        KnockOut: '//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min',
     },
     shim: {
         // See require.js docs for how to define dependencies that
@@ -48,6 +48,65 @@ cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) 
 
     console.log("test running of " + myWidget.id);
 
+    $('#com-chilipeppr-widget-plugandplay').css('position', 'relative');
+    $('#com-chilipeppr-widget-plugandplay').css('background', 'none');
+    $('#com-chilipeppr-widget-plugandplay').css('width', '300px');
+    $('body').prepend('<div id="test-3dviewer"></div>');
+
+    chilipeppr.load("#test-3dviewer", "http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/", function (ew) {
+        cprequire(['inline:com-chilipeppr-widget-3dviewer'], function (threed) {
+            threed.init({
+                doMyOwnDragDrop: false
+            });
+            //$('#com-chilipeppr-widget-3dviewer .panel-heading').addClass('hidden');
+            //autolevel.addRegionTo3d();
+            //autolevel.loadFileFromLocalStorageKey('com-chilipeppr-widget-autolevel-recent8');
+            //autolevel.toggleShowMatrix();
+
+            // only init eagle widget once 3d is loaded
+            // set doMyOwnDragDrop
+            ew.init(true);
+        });
+    });
+
+    $('#test-eagle-import').css('position', 'relative');
+    $('#test-eagle-import').css('background', 'none');
+    $('#test-eagle-import').css('width', '300px');
+    chilipeppr.load("#test-eagle-import", "http://jsfiddle.net/xpix/qmt3e0sm/show/light/",
+    function () {
+        cprequire(
+        ["inline:com-chilipeppr-widget-eagle"],
+
+        function (imp) {
+            imp.init();
+        });
+    });
+
+
+    chilipeppr.load("#test-drag-drop", "http://fiddle.jshell.net/chilipeppr/Z9F6G/show/light/",
+
+    function () {
+        cprequire(
+        ["inline:com-chilipeppr-elem-dragdrop"],
+
+        function (dd) {
+            dd.init();
+            dd.bind("body", null);
+        });
+    });
+    
+    chilipeppr.load("#com-chilipeppr-flash",
+        "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
+
+    function () {
+        console.log("mycallback got called after loading flash msg module");
+        cprequire(["inline:com-chilipeppr-elem-flashmsg"], function (fm) {
+            //console.log("inside require of " + fm.id);
+            fm.init();
+        });
+    });
+
+
     // init my widget
     myWidget.init();
     $('#com-chilipeppr-widget-plugandplay').css('padding', '10px;');
@@ -55,7 +114,7 @@ cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) 
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
@@ -67,6 +126,14 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
         fiddleurl: "http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
         githuburl: "http://github.com/xpix/chilipeppr-widget-eagle-dispenser", // The backing github repo
         testurl: "http://chilipeppr-eagle-plugandplay-xpix.c9users.io/widget.html",   // The standalone working widget so can view it working by itself
+
+        /**
+         * PICK AND PLACE VARIABLES.
+         */
+        pnpholders: {
+            'PNP Holder V0.1': 'pnp_holder_v0.1'
+        },
+
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -118,7 +185,7 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
             this.btnSetup();
             this.forkSetup();
 
-            console.log("I am done being initted.");
+            console.log("Module this object: ", this);
         },
         /**
          * Call this method from init to setup all the buttons when this widget
@@ -150,6 +217,17 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
                 placement: "auto",
                 trigger: "hover",
                 container: 'body'
+            });
+        },
+        /** 
+         * empty and fill select box 
+        */
+        selectbox: function(id, hash){
+            $(id).find('option').remove().end();
+            $.each(hash, function(key, value) {
+                $(id).append(
+                        $('<option></option>').val(value).html(key)
+                    );
             });
         },
         /**
@@ -190,6 +268,9 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
 
             this.options = options;
             console.log("options:", options);
+
+            // init ui 
+            this.selectbox('#pnpholders', this.pnpholders);
 
             // show/hide body
             if (options.showBody) {
@@ -290,103 +371,56 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* oth
 });
     //]]>
     </script>
-
 </head>
-
 <body>
-<div id="com-chilipeppr-widget-plugandplay">
-             <button type="button" class="btn btn-xs btn-default btn-eagle-sendgcodetows" style="margin: 4px 0;">Send Gcode to Workspace</button>
 
-             <div class="panel eagle-advanced" style="margin-bottom:10px;">
-             <!-- Dispense Setting -->
-                 <div class="checkbox">
-                     <label>
-                        <input type="checkbox" class="dispenser-active" xchecked /><h2>Solder Dispenser</h2>
-                     </label>
-                 </div>
-                 <div class="btn-group">
-                     <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
-                     <ul class="dropdown-menu" role="menu">
-                        <!--
-                        Size and product code from ebay offer:
-                        http://www.ebay.de/itm/321327139655
+   <div id="test-3dviewer"></div>
+   <div id="com-chilipeppr-flash"></div>
+   <div id="test-drag-drop"></div>
+   <div id="test-eagle-import"></div>
 
-                        TA14	Teliasia	14GA TAPERED TIP	1.55	Olive	1.25	1pc
-                        TA16	Teliasia	16GA TAPERED TIP	1.2	Grey	1.25	1pc
-                        TA18	Teliasia	18GA TAPERED TIP	0.84	Green	1.25	1pc
-                        TA20	Teliasia	20GA TAPERED TIP	0.58	Pink	1.25	1pc
-                        TA22	Teliasia	22GA TAPERED TIP	0.41	Blue	1.25	1pc
-                        TA25	Teliasia	25GA TAPERED TIP	0.26	Red	1.25	1pc
-                        
-                        BL14050	Teliasia	14GA Blunt End Tip 	1.55	2.1	Olive	0.5	1pc
-                        BL15050	Teliasia	15GA Blunt End Tip 	1.36	1.8	Amber	0.5	1pc
-                        BL18050	Teliasia	18GA Blunt End Tip 	0.84	1.27	Green	0.5	1pc
-                        BL20050	Teliasia	20GA Blunt End Tip 	0.6	0.92	Pink	0.5	1pc
-                        BL21050	Teliasia	21GA Blunt End Tip 	0.51	0.82	Purple	0.5	1pc
-                        BL22050	Teliasia	22GA Blunt End Tip 	0.41	0.72	Blue	0.5	1pc
-                        BL23050	Teliasia	23GA Blunt End Tip 	0.34	0.64	Orange	0.5	1pc
-                        BL25050	Teliasia	25GA Blunt End Tip 	0.26	0.52	Red	0.5	1pc
-                        BL27050	Teliasia	27GA Blunt End Tip 	0.21	0.42	Clear	0.5	1pc
-                        -->
+   <div id="com-chilipeppr-widget-plugandplay">
+      <div class="panel eagle-advanced" style="margin-bottom:10px;">
+      <!-- Dispense Setting -->
+        <div class="checkbox">
+            <label>
+               <input type="checkbox" class="dispenser-active" checked /><h2>Pick&Place</h2>
+            </label>
+        </div>
+        <div class="btn-group">
+           <button type="button" data-toggle="modal" data-target="#com-chilipeppr-widget-plugandplay-window" id="btn-pnp-trays" class="btn btn-xs btn-default" style="margin: 4px 0;">Trays</button> 
+        </div>
+        <div class="input-group">
+           <select id="pnpholders" class="form-control pnpholders"></select>
+        </div>
+       <p class="descriptive-text">
+         Model of the Pick and place Holder.
+       </p>
+      
+      </div> 
 
-                         <li role="presentation" class="dropdown-header">Color and inside diameter of canullas</li>
-                         <li><a diameter="1.55" href="">Olive  - 1.55 mm</a></li>
-                         <li><a diameter="1.36" href="">Amber  - 1.36 mm</a></li>
-                         <li><a diameter="1.20" href="">Grey   - 1.20 mm</a></li>
-                         <li><a diameter="0.84" href="">Green  - 0.84 mm</a></li>
-                         <li><a diameter="0.60" href="">Pink   - 0.60 mm</a></li>
-                         <li><a diameter="0.51" href="">Purple - 0.51 mm</a></li>
-                         <li><a diameter="0.51" href="">Blue   - 0.41 mm</a></li>
-                         <li><a diameter="0.34" href="">Orange - 0.34 mm</a></li>
-                         <li><a diameter="0.26" href="">Red    - 0.26 mm</a></li>
-                         <li><a diameter="0.21" href="">Clear  - 0.21 mm</a></li>
-                     </ul>&nbsp;Insidediameter of canulla in mm
-                 </div>
-                <div class="input-group">
-                    <input class="form-control cannulaDiameter" type="number" placeholder="Cannula" value="1" xdisabled />
-                    <div class="input-group-addon">mm</div>
-                </div>
-                <p class="descriptive-text">
-                  Diameter from Cannula, try first 1mm.
-                </p>
+      <!-- Modal -->
+      <div id="com-chilipeppr-widget-plugandplay-window" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Configure component trays.</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
 
-                Axis for Dispenser
-                <div class="input-group">
-                    <input class="form-control dispenserAxis" type="string" placeholder="Steps" value="X" xdisabled />
-                </div>
-                <p class="descriptive-text">
-                  Please input the name of the Axis for Dispenser Stepper.<br/>
-                </p>
+   </div> 
 
-                Dispenser Position Offset for X and Y-Axis
-                <div class="input-group">
-                    <div class="input-group-addon">X:</div>
-                    <input class="form-control DispenserXoffset" type="number" placeholder="Offsets" value="0" xdisabled />
-                    <div class="input-group-addon">mm</div>
-                </div>
-                <div class="input-group">
-                    <div class="input-group-addon">Y:</div>
-                    <input class="form-control DispenserYoffset" type="number" placeholder="Offsets" value="0" xdisabled />
-                    <div class="input-group-addon">mm</div>
-                </div>
-
-                <p class="descriptive-text">
-                  The Offset from middle of spindle to the middle of dispenser in mm.
-                </p>
-
-                Start and Release Offset
-                <div class="input-group">
-                    <input class="form-control startreleaseoffset" type="number" placeholder="Steps" value="1" xdisabled />
-                    <div class="input-group-addon">mm</div>
-                </div>
-                <p class="descriptive-text">
-                  Please input the start and release way in mm. After the dispense process, the pivot will release 
-                  the press to prevent flow solder paste after the process. The default are 1mm<br/>
-                </p>
-
-             </div> 
-             <!-- Dispense Setting -->
-</div> 
 </body>
-
 </html>

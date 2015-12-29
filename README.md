@@ -96,12 +96,14 @@ The table below shows, in order, the methods and properties inside the widget/el
 | fiddleurl | string | "http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay" |
 | githuburl | string | "http://github.com/xpix/chilipeppr-widget-eagle-dispenser" |
 | testurl | string | "http://chilipeppr-eagle-plugandplay-xpix.c9users.io/widget.html" |
+| pnpholders | object | PICK AND PLACE VARIABLES. |
 | publish | object | Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | subscribe | object | Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | foreignPublish | object | Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgetsor elements, that this widget/element publishes to. |
 | foreignSubscribe | object | Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgetsor elements, that this widget/element subscribes to. |
 | init | function | function () <br><br>All widgets should have an init method. It should be run by theinstantiating code like a workspace or a different widget. |
 | btnSetup | function | function () <br><br>Call this method from init to setup all the buttons when this widgetis first loaded. This basically attaches click events to your buttons. It also turns on all the bootstrap popovers by scanningthe entire DOM of the widget. |
+| selectbox | function | function (id, hash)<br><br>empty and fill select box |
 | options | object | User options are available in this property for reference by yourmethods. If any change is made on these options, please callsaveOptionsLocalStorage() |
 | setupUiFromLocalStorage | function | function () <br><br>Call this method on init to setup the UI by reading the user'sstored settings from localStorage and then adjust the UI to reflectwhat the user wants. |
 | saveOptionsLocalStorage | function | function () <br><br>When a user changes a value that is stored as an option setting, youshould call this method immediately so that on next load the valueis correctly set. |
