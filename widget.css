@@ -1,7 +1,7 @@
 /* CSS for ChiliPeppr Widget */
 
-#com-chilipeppr-widget-plugandplay {
-   
+#com-chilipeppr-widget-plugandplay .pnp-select {
+   width: 150px;
 }
 
 #com-chilipeppr-widget-plugandplay .nav-tabs>li>a {

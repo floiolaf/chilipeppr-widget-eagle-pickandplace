@@ -17,8 +17,8 @@
    <style type='text/css'>
 /* CSS for ChiliPeppr Widget */
 
-#com-chilipeppr-widget-plugandplay {
-   
+#com-chilipeppr-widget-plugandplay .pnp-select {
+   width: 150px;
 }
 
 #com-chilipeppr-widget-plugandplay .nav-tabs>li>a {
@@ -139,17 +139,17 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
             trays: {
                 // Trays are numbered and pockets has letters
                 // x and y coordinates are realtive to zero point of PNP Holder
-                tray_1: { width: 8, x: -106, y: 90 },
-                tray_2: { width: 8, x: -96,  y: 90 },
-                tray_3: { width: 8, x: -86,  y: 90 },
-                tray_4: { width: 8, x: -76,  y: 90 },
-                tray_5: { width: 8, x: -66,  y: 90 },
-                tray_6: { width: 12, x: -56, y: 90 },
-                tray_7: { width: 12, x: -42, y: 90 }
+                tray_1: { name: 'Tray Nr. 1',   width: 8, x: -106, y: 90 },
+                tray_2: { name: 'Tray Nr. 2',   width: 8, x: -96,  y: 90 },
+                tray_3: { name: 'Tray Nr. 3',   width: 8, x: -86,  y: 90 },
+                tray_4: { name: 'Tray Nr. 4',   width: 8, x: -76,  y: 90 },
+                tray_5: { name: 'Tray Nr. 5',   width: 8, x: -66,  y: 90 },
+                tray_6: { name: 'Tray Nr. 6',   width: 12, x: -56, y: 90 },
+                tray_7: { name: 'Tray Nr. 7',   width: 12, x: -42, y: 90 }
             },
             pockets: {
-                pocket_a: { width: 15, x: -23, y: 71 },
-                pocket_b: { width: 15, x: -23, y: 52 },
+                Pocket_A: { name: 'Pocket A',   width: 15, x: -23, y: 71 },
+                Pocket_B: { name: 'Pocket B',   width: 15, x: -23, y: 52 },
                 // ... etc.pp,
             },
         },
@@ -241,12 +241,12 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
         /** 
          * empty and fill select box 
         */
-        selectbox: function(id, hash, keyasvalue){
+        selectbox: function(id, hash, outcallback){
             $(id).find('option').remove().end();
             $.each(hash, function(key, value) {
                 $(id).append(
-                        $('<option></option>').val((keyasvalue ? key : value)).html(key)
-                    );
+                    $('<option></option>').val(key).html(( outcallback ? outcallback(value) : key))
+                );
             });
         },
         /** 
@@ -305,11 +305,14 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
             // init ui 
             this.selectbox('#pnpholders', this.pnpholders);
             this.table('#pnp-component-list', [
-                [ 3, 'R220', 'R0805', 'R54.8', 'R1, R2', '<select id="trays_R220" class="form-control" />' ],
-                [ 1, 'R470', 'R0805', 'R90', 'R4, R5', '<select id="trays_R470" class="form-control" />' ],
+                [ 3, 'R220', 'R0805', 'R54.8', 'R1, R2','<select id="trays_R220" class="pnp-select" />' ],
+                [ 1, 'R470', 'R0805', 'R90', 'R4, R5',  '<select id="trays_R470" class="pnp-select" />' ],
+                [ 1, 'C470', 'C0805', 'R0',  'C1',      '<select id="trays_C470" class="pnp-select" />' ],
             ]);
-            this.selectbox('#trays_R220', this.holderCoordinates['trays'], 'keyasvalue');
-            this.selectbox('#trays_R470', this.holderCoordinates['trays'], 'keyasvalue');
+            var output = function(entry){ return entry.name + ' (' + entry.width + 'mm)' };
+            this.selectbox('#trays_R220', this.holderCoordinates['trays'], output );
+            this.selectbox('#trays_R470', this.holderCoordinates['trays'], output );
+            this.selectbox('#trays_C470', this.holderCoordinates['pockets'], output );
 
             // show/hide body
             if (options.showBody) {
@@ -449,21 +452,25 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
               <h4 class="modal-title">Configure component trays.</h4>
             </div>
             <div class="modal-body">
-              <div class="table-responsive">          
-              <table id="pnp-component-list" class="table">
-                <thead>
-                  <tr>
-                    <th>Count</th>
-                    <th>Value</th>
-                    <th>Package</th>
-                    <th>Rotation</th>
-                    <th>Names</th>
-                    <th>Tray</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
+               <div class="panel panel-default">
+                 <!-- Standard-Panel-Inhalt -->
+                 <div class="panel-heading">Panel-Überschrift</div>
+                 <div class="table-responsive">          
+                 <table id="pnp-component-list" class="table">
+                   <thead>
+                     <tr>
+                       <th>Count</th>
+                       <th>Value</th>
+                       <th>Package</th>
+                       <th>Rotation</th>
+                       <th>Names</th>
+                       <th>Tray</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                   </tbody>
+                 </table>
+               </div>
               </div>
             </div>
             <div class="modal-footer">
