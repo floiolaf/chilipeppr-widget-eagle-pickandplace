@@ -1,9 +1,9 @@
-# com-chilipeppr-widget-eagle-pnp
-A widget for Pick and place in eagle import @ Chilipeppr,
+# com-chilipeppr-widget-template
+This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget.
 
 ![alt text](screenshot.png "Screenshot")
 
-## ChiliPeppr Widget / Eagle-Pick-and-Place
+## ChiliPeppr Widget / Template
 
 All ChiliPeppr widgets/elements are defined using cpdefine() which is a method
 that mimics require.js. Each defined object must have a unique ID so it does
@@ -14,10 +14,10 @@ not conflict with other ChiliPeppr widgets.
 | ID                    | com-chilipeppr-widget-template |
 | Name                  | Widget / Template |
 | Description           | This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget. |
-| chilipeppr.load() URL | http://raw.githubusercontent.com/chilipeppr/com-chilipeppr-widget-template/master/auto-generated-widget.html |
-| Edit URL              | http://ide.c9.io/chilipeppr/com-chilipeppr-widget-template |
-| Github URL            | http://github.com/chilipeppr/com-chilipeppr-widget-template |
-| Test URL              | http://com-chilipeppr-widget-template-chilipeppr.c9users.io/widget.html |
+| chilipeppr.load() URL | http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html |
+| Edit URL              | http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay |
+| Github URL            | http://github.com/xpix/chilipeppr-widget-eagle-dispenser |
+| Test URL              | http://chilipeppr-eagle-plugandplay-xpix.c9users.io/widget.html |
 
 ## Example Code for chilipeppr.load() Statement
 
@@ -30,7 +30,7 @@ back the instance of it.
 ```javascript
 chilipeppr.load(
   "#myDivWidgetInsertedInto",
-  "http://raw.githubusercontent.com/chilipeppr/com-chilipeppr-widget-template/master/auto-generated-widget.html",
+  "http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html",
   function() {
     // Callback after widget loaded into #myDivWidgetInsertedInto
     cprequire(
@@ -92,10 +92,10 @@ The table below shows, in order, the methods and properties inside the widget/el
 | id | string | "com-chilipeppr-widget-template"<br><br>The ID of the widget. You must define this and make it unique. |
 | name | string | "Widget / Template" |
 | desc | string | "This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget." |
-| url | string | "http://raw.githubusercontent.com/chilipeppr/com-chilipeppr-widget-template/master/auto-generated-widget.html" |
-| fiddleurl | string | "http://ide.c9.io/chilipeppr/com-chilipeppr-widget-template" |
-| githuburl | string | "http://github.com/chilipeppr/com-chilipeppr-widget-template" |
-| testurl | string | "http://com-chilipeppr-widget-template-chilipeppr.c9users.io/widget.html" |
+| url | string | "http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html" |
+| fiddleurl | string | "http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay" |
+| githuburl | string | "http://github.com/xpix/chilipeppr-widget-eagle-dispenser" |
+| testurl | string | "http://chilipeppr-eagle-plugandplay-xpix.c9users.io/widget.html" |
 | publish | object | Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | subscribe | object | Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | foreignPublish | object | Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgetsor elements, that this widget/element publishes to. |
