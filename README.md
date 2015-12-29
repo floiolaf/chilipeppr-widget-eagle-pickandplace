@@ -1,9 +1,9 @@
-# com-chilipeppr-widget-template
-This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget.
+# com-chilipeppr-widget-plugandplay
+This widget it's a part of eagle import and can place components on your milled PCB.
 
 ![alt text](screenshot.png "Screenshot")
 
-## ChiliPeppr Widget / Template
+## ChiliPeppr Widget / Plug&Play
 
 All ChiliPeppr widgets/elements are defined using cpdefine() which is a method
 that mimics require.js. Each defined object must have a unique ID so it does
@@ -11,9 +11,9 @@ not conflict with other ChiliPeppr widgets.
 
 | Item                  | Value           |
 | -------------         | ------------- | 
-| ID                    | com-chilipeppr-widget-template |
-| Name                  | Widget / Template |
-| Description           | This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget. |
+| ID                    | com-chilipeppr-widget-plugandplay |
+| Name                  | Widget / Plug&Play |
+| Description           | This widget it's a part of eagle import and can place components on your milled PCB. |
 | chilipeppr.load() URL | http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html |
 | Edit URL              | http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay |
 | Github URL            | http://github.com/xpix/chilipeppr-widget-eagle-dispenser |
@@ -34,7 +34,7 @@ chilipeppr.load(
   function() {
     // Callback after widget loaded into #myDivWidgetInsertedInto
     cprequire(
-      "inline:com-chilipeppr-widget-template", // the id you gave your widget
+      "inline:com-chilipeppr-widget-plugandplay", // the id you gave your widget
       function(mywidget) {
         // Callback that is passed reference to your newly loaded widget
         console.log("My widget just got loaded.", mywidget);
@@ -54,7 +54,7 @@ To better understand how ChiliPeppr's subscribe() method works see amplify.js's 
 
 | Signal | Description |
 | ------ | ----------- |
-| /com-chilipeppr-widget-template/onExampleGenerate | Example: Publish this signal when we go to generate gcode. |
+| (No signals defined in this widget/element) |
 
 ## Subscribe
 
@@ -89,9 +89,9 @@ The table below shows, in order, the methods and properties inside the widget/el
 
 | Item                  | Type          | Description |
 | -------------         | ------------- | ----------- |
-| id | string | "com-chilipeppr-widget-template"<br><br>The ID of the widget. You must define this and make it unique. |
-| name | string | "Widget / Template" |
-| desc | string | "This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget." |
+| id | string | "com-chilipeppr-widget-plugandplay"<br><br>The ID of the widget. You must define this and make it unique. |
+| name | string | "Widget / Plug&Play" |
+| desc | string | "This widget it's a part of eagle import and can place components on your milled PCB." |
 | url | string | "http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html" |
 | fiddleurl | string | "http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay" |
 | githuburl | string | "http://github.com/xpix/chilipeppr-widget-eagle-dispenser" |
@@ -102,7 +102,6 @@ The table below shows, in order, the methods and properties inside the widget/el
 | foreignSubscribe | object | Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgetsor elements, that this widget/element subscribes to. |
 | init | function | function () <br><br>All widgets should have an init method. It should be run by theinstantiating code like a workspace or a different widget. |
 | btnSetup | function | function () <br><br>Call this method from init to setup all the buttons when this widgetis first loaded. This basically attaches click events to your buttons. It also turns on all the bootstrap popovers by scanningthe entire DOM of the widget. |
-| onHelloBtnClick | function | function (evt) <br><br>onHelloBtnClick is an example of a button click event callback |
 | options | object | User options are available in this property for reference by yourmethods. If any change is made on these options, please callsaveOptionsLocalStorage() |
 | setupUiFromLocalStorage | function | function () <br><br>Call this method on init to setup the UI by reading the user'sstored settings from localStorage and then adjust the UI to reflectwhat the user wants. |
 | saveOptionsLocalStorage | function | function () <br><br>When a user changes a value that is stored as an option setting, youshould call this method immediately so that on next load the valueis correctly set. |

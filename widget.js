@@ -1,29 +1,11 @@
 // ChiliPeppr Widget/Element Javascript
+/*global requirejs cprequire cpdefine chilipeppr THREE*/
 
 requirejs.config({
-    /*
-    Dependencies can be defined here. ChiliPeppr uses require.js so
-    please refer to http://requirejs.org/docs/api.html for info.
-    
-    Most widgets will not need to define Javascript dependencies.
-    
-    Make sure all URLs are https and http accessible. Try to use URLs
-    that start with // rather than http:// or https:// so they simply
-    use whatever method the main page uses.
-    
-    Also, please make sure you are not loading dependencies from different
-    URLs that other widgets may already load like jquery, bootstrap,
-    three.js, etc.
-    
-    You may slingshot content through ChiliPeppr's proxy URL if you desire
-    to enable SSL for non-SSL URL's. ChiliPeppr's SSL URL is
-    https://i2dcui.appspot.com which is the SSL equivalent for
-    http://chilipeppr.com
-    */
     paths: {
         // Example of how to define the key (you make up the key) and the URL
         // Make sure you DO NOT put the .js at the end of the URL
-        // SmoothieCharts: '//smoothiecharts.org/smoothie',
+        KnockOut: '//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min',
     },
     shim: {
         // See require.js docs for how to define dependencies that
@@ -31,44 +13,25 @@ requirejs.config({
     }
 });
 
-cprequire_test(["inline:com-chilipeppr-widget-template"], function(myWidget) {
-
-    // Test this element. This code is auto-removed by the chilipeppr.load()
-    // when using this widget in production. So use the cpquire_test to do things
-    // you only want to have happen during testing, like loading other widgets or
-    // doing unit tests. Don't remove end_test at the end or auto-remove will fail.
+cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) {
 
     console.log("test running of " + myWidget.id);
 
-    $('body').prepend('<div id="testDivForFlashMessageWidget"></div>');
-
-    chilipeppr.load(
-        "#testDivForFlashMessageWidget",
-        "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
-        function() {
-            console.log("mycallback got called after loading flash msg module");
-            cprequire(["inline:com-chilipeppr-elem-flashmsg"], function(fm) {
-                //console.log("inside require of " + fm.id);
-                fm.init();
-            });
-        }
-    );
-
     // init my widget
     myWidget.init();
-    $('#com-chilipeppr-widget-template').css('padding', '10px;');
+    $('#com-chilipeppr-widget-plugandplay').css('padding', '10px;');
 
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-template", ["chilipeppr_ready", /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready", /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
          */
-        id: "com-chilipeppr-widget-template", // Make the id the same as the cpdefine id
-        name: "Widget / Template", // The descriptive name of your widget.
-        desc: "This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget.", // A description of what your widget does
+        id: "com-chilipeppr-widget-plugandplay", // Make the id the same as the cpdefine id
+        name: "Widget / Plug&Play", // The descriptive name of your widget.
+        desc: "This widget it's a part of eagle import and can place components on your milled PCB.", // A description of what your widget does
         url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
         fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
         githuburl: "(auto fill by runme.js)", // The backing github repo
@@ -84,7 +47,7 @@ cpdefine("inline:com-chilipeppr-widget-template", ["chilipeppr_ready", /* other 
          */
         publish: {
             // Define a key:value pair here as strings to document what signals you publish.
-            '/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
+            // '/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
         },
         /**
          * Define the subscribe signals that this widget/element owns or defines so that
@@ -157,42 +120,6 @@ cpdefine("inline:com-chilipeppr-widget-template", ["chilipeppr_ready", /* other 
                 trigger: "hover",
                 container: 'body'
             });
-
-            // Init Say Hello Button on Main Toolbar
-            // We are inlining an anonymous method as the callback here
-            // as opposed to a full callback method in the Hello Word 2
-            // example further below. Notice we have to use "that" so 
-            // that the this is set correctly inside the anonymous method
-            $('#' + this.id + ' .btn-sayhello').click(function() {
-                console.log("saying hello");
-                // Make sure popover is immediately hidden
-                $('#' + that.id + ' .btn-sayhello').popover("hide");
-                // Show a flash msg
-                chilipeppr.publish(
-                    "/com-chilipeppr-elem-flashmsg/flashmsg",
-                    "Hello Title",
-                    "Hello World from widget " + that.id,
-                    1000
-                );
-            });
-
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
-            $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-
-        },
-        /**
-         * onHelloBtnClick is an example of a button click event callback
-         */
-        onHelloBtnClick: function(evt) {
-            console.log("saying hello 2 from btn in tab 1");
-            chilipeppr.publish(
-                '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Hello 2 Title",
-                "Hello World 2 from Tab 1 from widget " + this.id,
-                2000 /* show for 2 second */
-            );
         },
         /**
          * User options are available in this property for reference by your
