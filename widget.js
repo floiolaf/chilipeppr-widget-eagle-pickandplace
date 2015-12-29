@@ -101,7 +101,26 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
         pnpholders: {
             'PNP Holder V0.1': 'pnp_holder_v0.1'
         },
-
+        // this define the trays, this will later load via ajax 
+        // for every tray holder but for the first time we define here the structure
+        holderCoordinates: {
+            trays: {
+                // Trays are numbered and pockets has letters
+                // x and y coordinates are realtive to zero point of PNP Holder
+                tray_1: { width: 8, x: -106, y: 90 },
+                tray_2: { width: 8, x: -96,  y: 90 },
+                tray_3: { width: 8, x: -86,  y: 90 },
+                tray_4: { width: 8, x: -76,  y: 90 },
+                tray_5: { width: 8, x: -66,  y: 90 },
+                tray_6: { width: 12, x: -56, y: 90 },
+                tray_7: { width: 12, x: -42, y: 90 }
+            },
+            pockets: {
+                pocket_a: { width: 15, x: -23, y: 71 },
+                pocket_b: { width: 15, x: -23, y: 52 },
+                // ... etc.pp,
+            },
+        },
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -190,11 +209,11 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
         /** 
          * empty and fill select box 
         */
-        selectbox: function(id, hash){
+        selectbox: function(id, hash, keyasvalue){
             $(id).find('option').remove().end();
             $.each(hash, function(key, value) {
                 $(id).append(
-                        $('<option></option>').val(value).html(key)
+                        $('<option></option>').val((keyasvalue ? key : value)).html(key)
                     );
             });
         },
@@ -254,9 +273,11 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
             // init ui 
             this.selectbox('#pnpholders', this.pnpholders);
             this.table('#pnp-component-list', [
-                [ 1, 'Frank', 'Herrmann', 48, 'Berlin', 'Germany' ],
-                [ 2, 'Olga', 'Herrmann', 33, 'Berlin', 'Germany' ],
+                [ 3, 'R220', 'R0805', 'R54.8', 'R1, R2', '<select id="trays_R220" class="form-control" />' ],
+                [ 1, 'R470', 'R0805', 'R90', 'R4, R5', '<select id="trays_R470" class="form-control" />' ],
             ]);
+            this.selectbox('trays_R220', this.holderCoordinates['trays'], 'keyasvalue');
+            this.selectbox('trays_R470', this.holderCoordinates['trays'], 'keyasvalue');
 
             // show/hide body
             if (options.showBody) {
