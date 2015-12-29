@@ -276,8 +276,8 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
                 [ 3, 'R220', 'R0805', 'R54.8', 'R1, R2', '<select id="trays_R220" class="form-control" />' ],
                 [ 1, 'R470', 'R0805', 'R90', 'R4, R5', '<select id="trays_R470" class="form-control" />' ],
             ]);
-            this.selectbox('trays_R220', this.holderCoordinates['trays'], 'keyasvalue');
-            this.selectbox('trays_R470', this.holderCoordinates['trays'], 'keyasvalue');
+            this.selectbox('#trays_R220', this.holderCoordinates['trays'], 'keyasvalue');
+            this.selectbox('#trays_R470', this.holderCoordinates['trays'], 'keyasvalue');
 
             // show/hide body
             if (options.showBody) {
