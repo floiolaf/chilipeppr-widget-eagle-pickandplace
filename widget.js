@@ -198,6 +198,20 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
                     );
             });
         },
+        /** 
+         * empty and fill table 
+        */
+        table: function(id, array){
+            $(id + " > tbody").html("");
+            $.each(array, function(idx, entry) {
+                var content = '<tr>';
+                $.each(entry, function(idx, value) {
+                    content += '<td>' + value + '</td>';  
+                });
+                content += '</tr>';
+                $(id + ' tr:last').after(content);        
+            });
+        },
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
@@ -239,6 +253,10 @@ cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* othe
 
             // init ui 
             this.selectbox('#pnpholders', this.pnpholders);
+            this.table('#pnp-component-list', [
+                [ 1, 'Frank', 'Herrmann', 48, 'Berlin', 'Germany' ],
+                [ 2, 'Olga', 'Herrmann', 33, 'Berlin', 'Germany' ],
+            ]);
 
             // show/hide body
             if (options.showBody) {
