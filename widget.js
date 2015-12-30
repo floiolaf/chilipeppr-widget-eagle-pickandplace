@@ -184,18 +184,18 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         sortTrayComponents: function(){
             console.group("sortTrayComponents");
             // calculate distace and sort components to tray numbers
-            var sorthash = {};
+            var sorthash = [];
             for (var elemValue in this.components.forTrays) {
                 var sum = 0, i = 0;
                 for (var elemKey in this.components.forTrays[elemValue]) {
                     ++i;
                     sum += this.components.forTrays[elemValue][elemKey].y;
                 }
-                sorthash[elemValue] = (sum / i).toFixed(4);
+                sorthash.push( {k: elemValue, v: (sum / i).toFixed(4)} );
             }
             // sort from min to max
             sorthash = sorthash.sort(function (a, b) {
-                return a.val.localeCompare( b.val );
+                return a.v.localeCompare( b.v );
             });
             console.log('PNP sorthash', sorthash);
             console.groupEnd();
