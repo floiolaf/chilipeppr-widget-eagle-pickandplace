@@ -160,6 +160,9 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
+            '/com-chilipeppr-widget-eagle/beforeRender':    'Remove PNP Holder in 3d space.',
+            '/com-chilipeppr-widget-eagle/afterRender':     'Render PNP Holder in 3d space to inform user which tray are busy.',
+            '/com-chilipeppr-widget-eagle/addGcode':        'Produce gcode and add this to main gcode buffer.'
         },
         /**
          * All widgets should have an init method. It should be run by the
@@ -169,10 +172,31 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             console.log("I am being initted. Thanks.");
 
             this.setupUiFromLocalStorage();
-            this.btnSetup();
-            this.forkSetup();
+            //this.btnSetup();
+            //this.forkSetup();
+
+            chilipeppr.subscribe("/com-chilipeppr-widget-eagle/beforeRender", this, this.onBeforeRender);
+            chilipeppr.subscribe("/com-chilipeppr-widget-eagle/afterRender", this, this.onAfterRender);
+            chilipeppr.subscribe("/com-chilipeppr-widget-eagle/addGcode", this, this.onAddGcode);
+
 
             console.log("Module this object: ", this);
+        },
+        onBeforeRender : function(that){
+            console.log("Get onBeforeRender:", that);
+            /* remove all old drops
+            this.renderedDrops.forEach(function(thing) {
+                that.sceneRemove(thing);
+            }, this);
+            */
+        },
+        onAfterRender : function(that){
+            console.log("Get onAfterRender:", that);
+            // this.renderDispenserDrops(that);
+        },
+        onAddGcode : function(that){
+            console.log("Get onAddGcode:", that);
+            //that.addGcode(this.gcodeOrderNumber , this.exportGcodeDispenser(that) );
         },
         /**
          * Call this method from init to setup all the buttons when this widget

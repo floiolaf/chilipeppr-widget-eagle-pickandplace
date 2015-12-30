@@ -81,7 +81,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
 
 | Signal | Description |
 | ------ | ----------- |
-| (No signals defined in this widget/element) |
+| /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/beforeRender | Remove PNP Holder in 3d space. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/afterRender | Render PNP Holder in 3d space to inform user which tray are busy. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/addGcode | Produce gcode and add this to main gcode buffer. |
 
 ## Methods / Properties
 
@@ -103,6 +103,9 @@ The table below shows, in order, the methods and properties inside the widget/el
 | foreignPublish | object | Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgetsor elements, that this widget/element publishes to. |
 | foreignSubscribe | object | Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgetsor elements, that this widget/element subscribes to. |
 | init | function | function () <br><br>All widgets should have an init method. It should be run by theinstantiating code like a workspace or a different widget. |
+| onBeforeRender | function | function (that) |
+| onAfterRender | function | function (that) |
+| onAddGcode | function | function (that) |
 | btnSetup | function | function () <br><br>Call this method from init to setup all the buttons when this widgetis first loaded. This basically attaches click events to your buttons. It also turns on all the bootstrap popovers by scanningthe entire DOM of the widget. |
 | selectbox | function | function (id, hash, outcallback)<br><br>empty and fill select box |
 | table | function | function (id, array)<br><br>empty and fill table |
