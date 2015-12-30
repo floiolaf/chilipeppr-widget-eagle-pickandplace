@@ -223,7 +223,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                     ++i;
                     sum += this.components.forTrays[elemValue][elemKey].y;
                 }
-                sorthash[elemValue] = (i / sum).toFixed(4);
+                sorthash[elemValue] = (sum / i).toFixed(4);
             }
             console.log('PNP sorthash', sorthash);
             console.groupEnd();
