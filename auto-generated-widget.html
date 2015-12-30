@@ -77,6 +77,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         // this define the trays, this will later load via ajax 
         // for every tray holder but for the first time we define here the structure
         holderCoordinates: {
+            sortAxis: 'y',
             trays: {
                 // Trays are numbered and pockets has letters
                 // x and y coordinates are realtive to zero point of PNP Holder
@@ -215,10 +216,16 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         sortTrayComponents: function(){
             console.group("sortTrayComponents");
             // calculate distace and sort components to tray numbers
-            this.components.forTrays.forEach(function(elem){
-                                
-            });          
-
+            var sorthash = {};
+            for (var elemValue in this.components.forTrays) {
+                var sum = 0, i = 0;
+                for (var elemKey in this.components.forTrays[elemValue]) {
+                    ++i;
+                    sum += this.components.forTrays[elemValue][elemKey].y;
+                }
+                sorthash[elemValue] = (i / sum).toFixed(4);
+            }
+            console.log('PNP sorthash', sorthash);
             console.groupEnd();
         },
         /** 
