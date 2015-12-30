@@ -224,6 +224,9 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                     sum += this.components.forTrays[elemValue][elemKey].y;
                 }
                 sorthash[elemValue] = (sum / i).toFixed(4);
+                sorthash = sorthash.sort(function (a, b) {
+                    return a.val.localeCompare( b.val );
+                });
             }
             console.log('PNP sorthash', sorthash);
             console.groupEnd();
