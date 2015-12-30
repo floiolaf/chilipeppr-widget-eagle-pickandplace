@@ -47,7 +47,7 @@ requirejs.config({
 cprequire_test(["inline:com-chilipeppr-widget-pickandplace"], function(myWidget) {
 
     console.log("test running of " + myWidget.id);
-
+    
     // init my widget
     myWidget.init();
     $('#com-chilipeppr-widget-pickandplace').css('padding', '10px;');
@@ -183,7 +183,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             // Analyze the eagle elements and save this in a local buffer      
             for (var elemKey in self.eagle.elements) {
                 var elem = self.eagle.elements[elemKey];
-                var pkg = this.eagle.packagesByName[elem.pkg];
+                var pkg = self.eagle.packagesByName[elem.pkg];
                 console.log("working on element:", elem, pkg);
             }            
 
