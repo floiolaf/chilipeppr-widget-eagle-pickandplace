@@ -64,9 +64,13 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         },
         // buffer for all founded eagle components
         components: {
-            forTrays: [],
-            forPockets: [],
+            forTrays: {},
+            forPockets: {},
         },
+        packagesTrays: [
+            '1206', '1008', '0805', 
+            '0603', '0402', 'SOT'
+        ],
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -153,11 +157,32 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                 var elem = self.eagle.elements[elemKey];
                 var pkg = self.eagle.packagesByName[elem.pkg];
                 console.log("working on element:", elem, pkg);
-            }            
+
+                // 1. sort all components to tray or pockets sortet via value
+                var that = this;
+                this.packagesTrays.forEach(function(type){
+                    var re = new RegExp(type, 'gi');
+                    var tray = 'forPockets';
+                    if(pkg.name.match(re)){
+                        tray = 'forTrays';
+                    }
+                    if(that.components[tray][elem.value] === 'undefined')
+                        that.components[tray][elem.value] = [];
+                    that.components[tray][elem.value].push(elem);
+                });
+            }
+            console.log('PNP OBJ: ', this);
 
             console.groupEnd();
         },
-
+        inArrayRegEx: function(regex, array) {
+            for (var i = 1; i <= array.length; i++) {
+                if (regex.test(array[i])) {
+                    return i;
+                }
+            }
+            return false;
+        },
         /** 
          * empty and fill select box 
         */

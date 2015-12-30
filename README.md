@@ -99,6 +99,7 @@ The table below shows, in order, the methods and properties inside the widget/el
 | pnpholders | object | PICK AND PLACE VARIABLES. |
 | holderCoordinates | object |  |
 | components | object |  |
+| packagesTrays | object |  |
 | publish | object | Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | subscribe | object | Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so thatother widgets know how to subscribe to them and what they do. |
 | foreignPublish | object | Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgetsor elements, that this widget/element publishes to. |
@@ -108,6 +109,7 @@ The table below shows, in order, the methods and properties inside the widget/el
 | onAfterRender | function | function (that) |
 | onAddGcode | function | function (that) |
 | registerEagleComponents | function | function (self) |
+| inArrayRegEx | function | function (regex, array)  |
 | selectbox | function | function (id, hash, outcallback)<br><br>empty and fill select box |
 | table | function | function (id, array)<br><br>empty and fill table |
 | options | object | User options are available in this property for reference by yourmethods. If any change is made on these options, please callsaveOptionsLocalStorage() |
