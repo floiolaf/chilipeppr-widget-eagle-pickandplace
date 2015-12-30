@@ -48,65 +48,6 @@ cprequire_test(["inline:com-chilipeppr-widget-pickandplace"], function(myWidget)
 
     console.log("test running of " + myWidget.id);
 
-    $('#com-chilipeppr-widget-pickandplace').css('position', 'relative');
-    $('#com-chilipeppr-widget-pickandplace').css('background', 'none');
-    $('#com-chilipeppr-widget-pickandplace').css('width', '300px');
-    $('body').prepend('<div id="test-3dviewer"></div>');
-
-    chilipeppr.load("#test-3dviewer", "http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/", function (ew) {
-        cprequire(['inline:com-chilipeppr-widget-3dviewer'], function (threed) {
-            threed.init({
-                doMyOwnDragDrop: false
-            });
-            //$('#com-chilipeppr-widget-3dviewer .panel-heading').addClass('hidden');
-            //autolevel.addRegionTo3d();
-            //autolevel.loadFileFromLocalStorageKey('com-chilipeppr-widget-autolevel-recent8');
-            //autolevel.toggleShowMatrix();
-
-            // only init eagle widget once 3d is loaded
-            // set doMyOwnDragDrop
-            ew.init(true);
-        });
-    });
-
-    $('#test-eagle-import').css('position', 'relative');
-    $('#test-eagle-import').css('background', 'none');
-    $('#test-eagle-import').css('width', '300px');
-    chilipeppr.load("#test-eagle-import", "http://jsfiddle.net/xpix/qmt3e0sm/show/light/",
-    function () {
-        cprequire(
-        ["inline:com-chilipeppr-widget-eagle"],
-
-        function (imp) {
-            imp.init();
-        });
-    });
-
-
-    chilipeppr.load("#test-drag-drop", "http://fiddle.jshell.net/chilipeppr/Z9F6G/show/light/",
-
-    function () {
-        cprequire(
-        ["inline:com-chilipeppr-elem-dragdrop"],
-
-        function (dd) {
-            dd.init();
-            dd.bind("body", null);
-        });
-    });
-    
-    chilipeppr.load("#com-chilipeppr-flash",
-        "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
-
-    function () {
-        console.log("mycallback got called after loading flash msg module");
-        cprequire(["inline:com-chilipeppr-elem-flashmsg"], function (fm) {
-            //console.log("inside require of " + fm.id);
-            fm.init();
-        });
-    });
-
-
     // init my widget
     myWidget.init();
     $('#com-chilipeppr-widget-pickandplace').css('padding', '10px;');
@@ -324,15 +265,6 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             this.selectbox('#trays_R220', this.holderCoordinates['trays'], output );
             this.selectbox('#trays_R470', this.holderCoordinates['trays'], output );
             this.selectbox('#trays_C470', this.holderCoordinates['pockets'], output );
-
-            // show/hide body
-            if (options.showBody) {
-                this.showBody();
-            }
-            else {
-                this.hideBody();
-            }
-
         },
         /**
          * When a user changes a value that is stored as an option setting, you
