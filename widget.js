@@ -45,7 +45,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         // this define the trays, this will later load via ajax 
         // for every tray holder but for the first time we define here the structure
         holderCoordinates: {
-            sortAxis: 'y',
+            sortAxis: 'x',
             trays: {
                 // Trays are numbered and pockets has letters
                 // x and y coordinates are realtive to zero point of PNP Holder
@@ -190,7 +190,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                 var sum = 0, i = 0;
                 for (var elemKey in this.components.forTrays[elemValue]) {
                     ++i;
-                    sum += this.components.forTrays[elemValue][elemKey].y;
+                    sum += this.components.forTrays[elemValue][elemKey].x;
                 }
                 sorthash.push( {k: elemValue, v: (sum / i).toFixed(4)} );
             }
@@ -203,7 +203,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             var trays = [];
             $.each(this.holderCoordinates.trays, function(key, value) {
             // make all trays to width = 8mm ... done
-               trays.push( {k: key, v: value.y} ); // TODO: try to get sortAxis
+               trays.push( {k: key, v: value.x} ); // TODO: try to get sortAxis
             });
             trays.sort(function (a, b) {
                 return ( a.v - b.v );
