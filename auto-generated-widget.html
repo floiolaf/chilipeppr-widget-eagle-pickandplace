@@ -174,6 +174,9 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             // Define a key:value pair here as strings to document what signals you subscribe to
             // so other widgets can publish to this widget to have it do something.
             // '/onExampleConsume': 'Example: This widget subscribe to this signal so other widgets can send to us and we'll do something with it.'
+            '/com-chilipeppr-widget-eagle/beforeRender':    'Remove PNP Holder in 3d space.',
+            '/com-chilipeppr-widget-eagle/afterRender':     'Render PNP Holder in 3d space to inform user which tray are busy.',
+            '/com-chilipeppr-widget-eagle/addGcode':        'Produce gcode and add this to main gcode buffer.'
         },
         /**
          * Document the foreign publish signals, i.e. signals owned by other widgets
@@ -192,9 +195,6 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
-            '/com-chilipeppr-widget-eagle/beforeRender':    'Remove PNP Holder in 3d space.',
-            '/com-chilipeppr-widget-eagle/afterRender':     'Render PNP Holder in 3d space to inform user which tray are busy.',
-            '/com-chilipeppr-widget-eagle/addGcode':        'Produce gcode and add this to main gcode buffer.'
         },
         /**
          * All widgets should have an init method. It should be run by the

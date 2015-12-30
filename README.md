@@ -63,7 +63,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
 
 | Signal | Description |
 | ------ | ----------- |
-| (No signals defined in this widget/element) |
+| /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/beforeRender | Remove PNP Holder in 3d space. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/afterRender | Render PNP Holder in 3d space to inform user which tray are busy. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/addGcode | Produce gcode and add this to main gcode buffer. |
 
 ## Foreign Publish
 
@@ -81,7 +81,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
 
 | Signal | Description |
 | ------ | ----------- |
-| /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/beforeRender | Remove PNP Holder in 3d space. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/afterRender | Render PNP Holder in 3d space to inform user which tray are busy. || /com-chilipeppr-widget-pickandplace/com-chilipeppr-widget-eagle/addGcode | Produce gcode and add this to main gcode buffer. |
+| (No signals defined in this widget/element) |
 
 ## Methods / Properties
 
