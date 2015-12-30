@@ -152,8 +152,8 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         registerEagleComponents: function(self){
             console.group("registerEagleComponents");
             
-            that.components['forTrays'] = {};
-            that.components['forPockets'] = {};
+            this.components['forTrays'] = {};
+            this.components['forPockets'] = {};
             
             // Analyze the eagle elements and save this in a local buffer 
             // sorted by trays or pockets and his values or names      
