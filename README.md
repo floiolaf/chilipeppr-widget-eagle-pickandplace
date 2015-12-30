@@ -1,4 +1,4 @@
-# com-chilipeppr-widget-plugandplay
+# com-chilipeppr-widget-pickandplace
 This widget it's a part of eagle import and can place components on your milled PCB.
 
 ![alt text](screenshot.png "Screenshot")
@@ -11,7 +11,7 @@ not conflict with other ChiliPeppr widgets.
 
 | Item                  | Value           |
 | -------------         | ------------- | 
-| ID                    | com-chilipeppr-widget-plugandplay |
+| ID                    | com-chilipeppr-widget-pickandplace |
 | Name                  | Widget / Plug&Play |
 | Description           | This widget it's a part of eagle import and can place components on your milled PCB. |
 | chilipeppr.load() URL | http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html |
@@ -34,7 +34,7 @@ chilipeppr.load(
   function() {
     // Callback after widget loaded into #myDivWidgetInsertedInto
     cprequire(
-      "inline:com-chilipeppr-widget-plugandplay", // the id you gave your widget
+      "inline:com-chilipeppr-widget-pickandplace", // the id you gave your widget
       function(mywidget) {
         // Callback that is passed reference to your newly loaded widget
         console.log("My widget just got loaded.", mywidget);
@@ -89,7 +89,7 @@ The table below shows, in order, the methods and properties inside the widget/el
 
 | Item                  | Type          | Description |
 | -------------         | ------------- | ----------- |
-| id | string | "com-chilipeppr-widget-plugandplay"<br><br>The ID of the widget. You must define this and make it unique. |
+| id | string | "com-chilipeppr-widget-pickandplace"<br><br>The ID of the widget. You must define this and make it unique. |
 | name | string | "Widget / Plug&Play" |
 | desc | string | "This widget it's a part of eagle import and can place components on your milled PCB." |
 | url | string | "http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html" |

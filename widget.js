@@ -12,13 +12,13 @@ requirejs.config({
     }
 });
 
-cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) {
+cprequire_test(["inline:com-chilipeppr-widget-pickandplace"], function(myWidget) {
 
     console.log("test running of " + myWidget.id);
 
-    $('#com-chilipeppr-widget-plugandplay').css('position', 'relative');
-    $('#com-chilipeppr-widget-plugandplay').css('background', 'none');
-    $('#com-chilipeppr-widget-plugandplay').css('width', '300px');
+    $('#com-chilipeppr-widget-pickandplace').css('position', 'relative');
+    $('#com-chilipeppr-widget-pickandplace').css('background', 'none');
+    $('#com-chilipeppr-widget-pickandplace').css('width', '300px');
     $('body').prepend('<div id="test-3dviewer"></div>');
 
     chilipeppr.load("#test-3dviewer", "http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/", function (ew) {
@@ -77,17 +77,17 @@ cprequire_test(["inline:com-chilipeppr-widget-plugandplay"], function(myWidget) 
 
     // init my widget
     myWidget.init();
-    $('#com-chilipeppr-widget-plugandplay').css('padding', '10px;');
+    $('#com-chilipeppr-widget-pickandplace').css('padding', '10px;');
 
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-plugandplay", ["chilipeppr_ready" /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
          */
-        id: "com-chilipeppr-widget-plugandplay", // Make the id the same as the cpdefine id
+        id: "com-chilipeppr-widget-pickandplace", // Make the id the same as the cpdefine id
         name: "Widget / Plug&Play", // The descriptive name of your widget.
         desc: "This widget it's a part of eagle import and can place components on your milled PCB.", // A description of what your widget does
         url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
