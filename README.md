@@ -3,7 +3,7 @@ This widget it's a part of eagle import and can place components on your milled 
 
 ![alt text](screenshot.png "Screenshot")
 
-## ChiliPeppr Widget / Plug&Play
+## ChiliPeppr Widget / Pick&Place
 
 All ChiliPeppr widgets/elements are defined using cpdefine() which is a method
 that mimics require.js. Each defined object must have a unique ID so it does
@@ -12,7 +12,7 @@ not conflict with other ChiliPeppr widgets.
 | Item                  | Value           |
 | -------------         | ------------- | 
 | ID                    | com-chilipeppr-widget-pickandplace |
-| Name                  | Widget / Plug&Play |
+| Name                  | Widget / Pick&Place |
 | Description           | This widget it's a part of eagle import and can place components on your milled PCB. |
 | chilipeppr.load() URL | http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html |
 | Edit URL              | http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay |
@@ -90,7 +90,7 @@ The table below shows, in order, the methods and properties inside the widget/el
 | Item                  | Type          | Description |
 | -------------         | ------------- | ----------- |
 | id | string | "com-chilipeppr-widget-pickandplace"<br><br>The ID of the widget. You must define this and make it unique. |
-| name | string | "Widget / Plug&Play" |
+| name | string | "Widget / Pick&Place" |
 | desc | string | "This widget it's a part of eagle import and can place components on your milled PCB." |
 | url | string | "http://raw.githubusercontent.com/xpix/chilipeppr-widget-eagle-dispenser/master/auto-generated-widget.html" |
 | fiddleurl | string | "http://ide.c9.io/xpix/chilipeppr-eagle-plugandplay" |
