@@ -227,7 +227,7 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             }
             // sort from min to max
             sorthash.sort(function (a, b) {
-                return a.v.localeCompare( b.v );
+                return ( a.v - b.v );
             });
             console.log('PNP sorthash', sorthash);
             console.groupEnd();
