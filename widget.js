@@ -206,11 +206,20 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                trays.push( {k: key, v: value.x} ); // TODO: try to get sortAxis
             });
             trays.sort(function (a, b) {
-                return ( a.v - b.v );
+                return ( b.v - a.v );
             });
             console.log('PNP trayssort', trays);
 
+            // set element to tray
+            var i = 0;
+            sorthash.forEach(function(entry){
+                entry.t = trays[i++].k;                      
+            });
+            console.log('PNP result', sorthash);
+
             console.groupEnd();
+
+            return sorthash;
         },
         /** 
          * empty and fill select box 
