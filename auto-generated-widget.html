@@ -202,9 +202,10 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                     if(pkg.name.match(re)){
                         tray = 'forTrays';
                     }
-                    if(that.components[tray][elem.value] === undefined)
-                        that.components[tray][elem.value] = {};
-                    that.components[tray][elem.value || elem.name][elem.name] = elem;
+                    var key = elem.value || elem.name;
+                    if(that.components[tray][key] === undefined)
+                        that.components[tray][key] = {};
+                    that.components[tray][key][elem.name] = elem;
                 });
             }
             console.log('PNP OBJ: ', this);
@@ -213,7 +214,10 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         },
         sortTrayComponents: function(){
             console.group("sortTrayComponents");
-            
+            // calculate distace and sort components to tray numbers
+            this.components.forTrays.forEach(function(elem){
+                                
+            });          
 
             console.groupEnd();
         },
