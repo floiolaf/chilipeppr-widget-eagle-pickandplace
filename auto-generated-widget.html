@@ -153,6 +153,11 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                 // ... etc.pp,
             },
         },
+        // buffer for all founded eagle components
+        components: {
+            forTrays: [],
+            forPockets: [],
+        },
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -224,32 +229,26 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         },
         onAfterRender : function(that){
             console.log("Get onAfterRender:", that);
-            // this.renderDispenserDrops(that);
+            this.registerEagleComponents(that);
         },
         onAddGcode : function(that){
             console.log("Get onAddGcode:", that);
             //that.addGcode(this.gcodeOrderNumber , this.exportGcodeDispenser(that) );
         },
-        /**
-         * Call this method from init to setup all the buttons when this widget
-         * is first loaded. This basically attaches click events to your 
-         * buttons. It also turns on all the bootstrap popovers by scanning
-         * the entire DOM of the widget.
-         */
-        btnSetup: function() {
 
-        
+        registerEagleComponents: function(self){
+            console.group("registerEagleComponents");
 
-            // Ask bootstrap to scan all the buttons in the widget to turn
-            // on popover menus
-            $('#' + this.id + ' .btn').popover({
-                delay: 1000,
-                animation: true,
-                placement: "auto",
-                trigger: "hover",
-                container: 'body'
-            });
+            // Analyze the eagle elements and save this in a local buffer      
+            for (var elemKey in self.eagle.elements) {
+                var elem = self.eagle.elements[elemKey];
+                var pkg = this.eagle.packagesByName[elem.pkg];
+                console.log("working on element:", elem, pkg);
+            }            
+
+            console.groupEnd();
         },
+
         /** 
          * empty and fill select box 
         */
