@@ -109,7 +109,7 @@ The table below shows, in order, the methods and properties inside the widget/el
 | onAfterRender | function | function (that) |
 | onAddGcode | function | function (that) |
 | registerEagleComponents | function | function (self) |
-| inArrayRegEx | function | function (regex, array)  |
+| sortTrayComponents | function | function () |
 | selectbox | function | function (id, hash, outcallback)<br><br>empty and fill select box |
 | table | function | function (id, array)<br><br>empty and fill table |
 | options | object | User options are available in this property for reference by yourmethods. If any change is made on these options, please callsaveOptionsLocalStorage() |

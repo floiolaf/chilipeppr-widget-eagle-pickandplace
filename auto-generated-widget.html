@@ -175,16 +175,20 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
         onAfterRender : function(that){
             console.log("Get onAfterRender:", that);
             this.registerEagleComponents(that);
+            this.sortTrayComponents();
         },
         onAddGcode : function(that){
             console.log("Get onAddGcode:", that);
             //that.addGcode(this.gcodeOrderNumber , this.exportGcodeDispenser(that) );
         },
-
         registerEagleComponents: function(self){
             console.group("registerEagleComponents");
-
-            // Analyze the eagle elements and save this in a local buffer      
+            
+            that.components['forTrays'] = {};
+            that.components['forPockets'] = {};
+            
+            // Analyze the eagle elements and save this in a local buffer 
+            // sorted by trays or pockets and his values or names      
             for (var elemKey in self.eagle.elements) {
                 var elem = self.eagle.elements[elemKey];
                 var pkg = self.eagle.packagesByName[elem.pkg];
@@ -199,21 +203,19 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                         tray = 'forTrays';
                     }
                     if(that.components[tray][elem.value] === undefined)
-                        that.components[tray][elem.value] = [];
-                    that.components[tray][elem.value].push(elem);
+                        that.components[tray][elem.value] = {};
+                    that.components[tray][elem.value || elem.name][elem.name] = elem;
                 });
             }
             console.log('PNP OBJ: ', this);
 
             console.groupEnd();
         },
-        inArrayRegEx: function(regex, array) {
-            for (var i = 1; i <= array.length; i++) {
-                if (regex.test(array[i])) {
-                    return i;
-                }
-            }
-            return false;
+        sortTrayComponents: function(){
+            console.group("sortTrayComponents");
+            
+
+            console.groupEnd();
         },
         /** 
          * empty and fill select box 
