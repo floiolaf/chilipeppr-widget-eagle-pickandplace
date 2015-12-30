@@ -54,8 +54,9 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                 tray_3: { name: 'Tray Nr. 3',   width: 8, x: -86,  y: 90 },
                 tray_4: { name: 'Tray Nr. 4',   width: 8, x: -76,  y: 90 },
                 tray_5: { name: 'Tray Nr. 5',   width: 8, x: -66,  y: 90 },
-                tray_6: { name: 'Tray Nr. 6',   width: 12, x: -56, y: 90 },
-                tray_7: { name: 'Tray Nr. 7',   width: 12, x: -42, y: 90 }
+                tray_6: { name: 'Tray Nr. 6',   width: 8, x: -56,  y: 90 },
+                tray_7: { name: 'Tray Nr. 7',   width: 8, x: -46,  y: 90 },
+                tray_8: { name: 'Tray Nr. 7',   width: 8, x: -36,  y: 90 },
             },
             pockets: {
                 Pocket_A: { name: 'Pocket A',   width: 15, x: -23, y: 71 },
@@ -198,6 +199,17 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
                 return ( a.v - b.v );
             });
             console.log('PNP sorthash', sorthash);
+
+            var trays = [];
+            $.each(this.holderCoordinates.trays, function(key, value) {
+            // make all trays to width = 8mm ... done
+               trays.push( {k: key, v: value.y} ); // TODO: try to get sortAxis
+            });
+            trays.sort(function (a, b) {
+                return ( a.v - b.v );
+            });
+            console.log('PNP trayssort', trays);
+
             console.groupEnd();
         },
         /** 
