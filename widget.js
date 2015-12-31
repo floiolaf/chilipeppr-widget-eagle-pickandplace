@@ -211,11 +211,15 @@ cpdefine("inline:com-chilipeppr-widget-pickandplace", ["chilipeppr_ready" /* oth
             console.log('PNP trayssort', trays);
 
             // set element to tray
-            var i = 0;
+            var i = 0, that = this;
             sorthash.forEach(function(entry){
                 entry.t = trays[i++].k;                      
+                that.components.forTrays[entry.k]['TRAY'] = entry.t;
+                
             });
             console.log('PNP result', sorthash);
+            
+            
 
             console.groupEnd();
 
